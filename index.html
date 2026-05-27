@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar-container">
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="#"><img src="./img/logo.png" class="logo"
+                        class="d-inline-block align-text-top"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="#">Início</a>
+                        <a class="nav-link" href="./html/sobre.html">Sobre</a>
+                        <!--Notícias/dropdown-->
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Notícias</a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="./html/funciona.html">Como funciona?</a>
+                                <a class="dropdown-item" href="./html/surgiu.html">Como surgiu?</a>
+                                <a class="dropdown-item" href="./html/tipos.html">Tipos de IA</a>
+                                <a class="dropdown-item" href="./html/uso.html">Uso Cotidiano</a>
+                            </div>
+                        </div>
+                        <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdArSO-csK1vUwqgl4K5mfgzs2TUSXiYkJ_VKuFJbAvVCgHVQ/viewform?usp=publish-editor" >Diga-nos sua opinião</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+    <!-- Carrossel -->
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2"></button>
+        </div>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="./img/notf1.png" class="d-block w-100" alt="1">
+                <div class="carousel-caption">
+                    <h2 class="carousel-title">Criação das IAs</h2>
+                    <p class="carousel-subtitle">Como a Inteligência Artificial que você usa todos os dias é criada?</p>
+                    <a href="./html/funciona.html" class="btn-hero">Como funciona a IA?</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="./img/skate3.png" class="d-block w-100" alt="2">
+                <div class="carousel-caption">
+                    <h2 class="carousel-title">Qualidade que você sente</h2>
+                    <p class="carousel-subtitle">Materiais selecionados por quem anda de skate</p>
+                    <a href="#pranchas" class="btn-hero">Ver produtos</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="./img/skate4.png" class="d-block w-100" alt="3">
+                <div class="carousel-caption">
+                    <h2 class="carousel-title">Novo drop disponível</h2>
+                    <p class="carousel-subtitle">Shapes exclusivos CBGANG — edição limitada</p>
+                    <a href="#pranchas" class="btn-hero">Ver produtos</a>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+
+    </div>
+
+
+
+</body>
+
+</html>

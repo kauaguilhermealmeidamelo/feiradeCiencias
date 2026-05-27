@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar-container">
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="#"><img src="../img/logo.png"
+                        class="logo d-inline-block align-text-top"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="../index.html">Início</a>
+                        <a class="nav-link" href="./sobre.html">Sobre</a>
+
+                        <!--Notícias/dropdown-->
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Notícias</a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="./funciona.html">Como funciona?</a>
+                                <a class="dropdown-item" href="./surgiu.html">Como surgiu?</a>
+                                <a class="dropdown-item" href="./tipos.html">Tipos de IA</a>
+                                <a class="dropdown-item" href="./uso.html">Uso Cotidiano</a>
+                            </div>
+                        </div>
+                        <a class="nav-link"
+                            href="https://docs.google.com/forms/d/e/1FAIpQLSdArSO-csK1vUwqgl4K5mfgzs2TUSXiYkJ_VKuFJbAvVCgHVQ/viewform?usp=publish-editor">Diga-nos
+                            sua opinião</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+    <!--main-->
+    <main class="container my-5">
+        <section class="noticia">
+            <img src="../img/notf1.png" alt="">
+
+            <section class="audio-player">
+                <div class="audio-card">
+                    <div class="audio-top">
+                        <span class="audio-tag">voz real do grupo</span>
+                        <h2>Ouvir em voz do grupo</h2>
+                    </div>
+                    <p class="audio-desc">Clique no botão abaixo para ouvir a gravação real do membro do grupo.</p>
+                    <button id="audioButton" class="audio-btn">
+                        <span class="btn-icon">🎧</span>
+                        <span class="btn-text">Ouvir a leitura</span>
+                    </button>
+                    <audio id="groupAudio" hidden>
+                        <source src="../audio/funcionaAudio.ogg" type="audio/ogg">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
+            </section>
+
+            <h1 class="mb-4">Como funciona a inteligência artificial?</h1>
+            <p>O funcionamento da inteligência artificial, de maneira simplificada, acontece por meio da coleta e da
+                combinação de um grande volume de dados seguido da identificação de determinados padrões nesse conjunto
+                de informações. Com esse processo, que geralmente se dá mediante a utilização de algoritmos
+                pré-programados, o software consegue tomar decisões e realizar tarefas de maneira autônoma.</p>
+            <p>Existe uma série de diferentes métodos por meio dos quais uma IA pode reproduzir o comportamento humano.
+                Os dois principais são:</p>
+            <ul>
+                <li><strong>Machine learning</strong>: chamado de aprendizado de máquina, é o processo que acontece de
+                    maneira automatizada. O reconhecimento e a reprodução de padrões são feitos pela IA com base na sua
+                    experiência prévia, adquirida pela utilização de algoritmos. Um dos principais exemplos são os
+                    mecanismos de pesquisa na internet.</li>
+                <li><strong>Deep learning</strong>: subcampo do machine learning, utiliza-se de redes neurais (unidades
+                    conectadas em rede para a análise de bancos de dados e informações) para emular o cérebro humano.
+                </li>
+            </ul>
+        </section>
+        </main>
+
+        <script>
+            const audioButton = document.getElementById('audioButton');
+            const groupAudio = document.getElementById('groupAudio');
+
+            audioButton.addEventListener('click', () => {
+                if (groupAudio.paused) {
+                    groupAudio.play();
+                    audioButton.textContent = 'Pausar leitura';
+                } else {
+                    groupAudio.pause();
+                    audioButton.textContent = 'Ouvir a leitura';
+                }
+            });
+
+            groupAudio.addEventListener('ended', () => {
+                audioButton.textContent = 'Ouvir a leitura';
+            });
+        </script>
+    </body>
+</html>
