@@ -1,1 +1,120 @@
-!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar-container">
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="#"><img src="../img/logo.png"
+                        class="logo d-inline-block align-text-top"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="../index.html">Início</a>
+                        <a class="nav-link" href="./sobre.html">Sobre</a>
+
+                        <!--Notícias/dropdown-->
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Notícias</a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="./funciona.html">Como funciona?</a>
+                                <a class="dropdown-item" href="./surgiu.html">Como surgiu?</a>
+                                <a class="dropdown-item" href="./tipos.html">Tipos de IA</a>
+                            </div>
+                        </div>
+                        <a class="nav-link"
+                            href="https://docs.google.com/forms/d/e/1FAIpQLSdArSO-csK1vUwqgl4K5mfgzs2TUSXiYkJ_VKuFJbAvVCgHVQ/viewform?usp=publish-editor">Diga-nos
+                            sua opinião</a>
+                            <a class="nav-link" href="./html/uso.html">Dados de uso da IA</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+    
+    <!--main-->
+
+    
+    <main class="container my-5">
+         <section class="my-5">
+                <h2 class="text-center mb-4" style="color: white;">Equipe do projeto - 3I</h2>
+                <div id="carouselMembros" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselMembros" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Kauã Guilherme Almeida Melo"></button>
+                        <button type="button" data-bs-target="#carouselMembros" data-bs-slide-to="1" aria-label="Pedro Kalleby Costa de Sousa"></button>
+                        <button type="button" data-bs-target="#carouselMembros" data-bs-slide-to="2" aria-label="Ana Clara Machado"></button>
+                        <button type="button" data-bs-target="#carouselMembros" data-bs-slide-to="3" aria-label="Bernardo Maia Santana"></button>
+                    </div>
+
+                    <div class="carousel-inner rounded-4 overflow-hidden shadow-lg">
+                        <div class="carousel-item active">
+                            <img src="../img/membro1.png" class="d-block w-100" alt="Kauã Guilherme Almeida Melo" style="height: 520px; object-fit: cover;">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h3 class="carousel-title">Kauã Guilherme Almeida Melo</h3>
+                                <p class="carousel-subtitle">Líder de programação e integração</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../img/membro2.png" class="d-block w-100" alt="Pedro Kalleby Costa de Sousa" style="height: 520px; object-fit: cover;">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h3 class="carousel-title">Pedro Kalleby Costa de Sousa</h3>
+                                <p class="carousel-subtitle">Designer e responsável pela estética do site</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../img/membro3.png" class="d-block w-100" alt="Ana Clara Machado do Nascimento" style="height: 520px; object-fit: cover;">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h3 class="carousel-title">Ana Clara Machado do Nascimento</h3>
+                                <p class="carousel-subtitle">Pesquisadora de conteúdo e contextualização</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../img/membro4.png" class="d-block w-100" alt="Bernardo Maia Santana" style="height: 520px; object-fit: cover;">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h3 class="carousel-title">Bernardo Maia Santana</h3>
+                                <p class="carousel-subtitle">Coordenação de apresentação e validação</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselMembros" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselMembros" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Próximo</span>
+                    </button>
+                </div>
+            </section>
+        <section class="noticia"> 
+            <h1>Sobre o projeto</h1>
+            <p>Este projeto foi desenvolvido por um grupo de estudantes do CEM Setor Leste para a Feira de Ciências com o objetivo de informar e educar as pessoas sobre a inteligência artificial (IA). A IA é uma área da ciência da computação que se concentra na criação de sistemas capazes de realizar tarefas que normalmente exigiriam inteligência humana, como reconhecimento de fala, tomada de decisões e aprendizado.</p>
+            <p>Nosso site apresenta uma série de notícias e informações sobre a IA, incluindo como ela funciona, sua história e os diferentes tipos de IA. Também incluímos dados sobre o uso da IA em diferentes setores e convidamos os visitantes a compartilhar suas opiniões por meio de um formulário online.</p>
+            <p>Esperamos que este projeto ajude a aumentar a conscientização sobre a IA e seus impactos na sociedade, além de incentivar as pessoas a aprender mais sobre essa tecnologia fascinante.</p>
+        </section>
+    </main>
+
+</body>
+</html>

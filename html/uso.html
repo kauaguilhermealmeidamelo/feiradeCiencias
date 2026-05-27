@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Início</title>
+    <title>Dados de Uso da IA</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
@@ -43,10 +43,10 @@
                                 <a class="dropdown-item" href="./funciona.html">Como funciona?</a>
                                 <a class="dropdown-item" href="./surgiu.html">Como surgiu?</a>
                                 <a class="dropdown-item" href="./tipos.html">Tipos de IA</a>
-                                <a class="dropdown-item" href="./uso.html">Uso Cotidiano</a>
                             </div>
                         </div>
-                        <a class="nav-link active" href="https://docs.google.com/forms/d/e/1FAIpQLSdArSO-csK1vUwqgl4K5mfgzs2TUSXiYkJ_VKuFJbAvVCgHVQ/viewform?usp=publish-editor">Diga-nos sua opinião</a>
+                        <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdArSO-csK1vUwqgl4K5mfgzs2TUSXiYkJ_VKuFJbAvVCgHVQ/viewform?usp=publish-editor">Diga-nos sua opinião</a>
+                        <a class="nav-link" href="./html/uso.html">Dados de uso da IA</a>
                     </div>
                 </div>
             </div>
@@ -107,8 +107,7 @@
     </main>
 
     <script>
-        // Dados obtidos da planilha Google Sheets
-        // https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-ETa5ueezJ8wkK4aZTg15c6lpKmxR6Nppco0tC82v2UHfc7vfxfBIMeRPgaK9rY3uP2E-Zccs-5GD/pubhtml
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-ETa5ueezJ8wkK4aZTg15c6lpKmxR6Nppco0tC82v2UHfc7vfxfBIMeRPgaK9rY3uP2E-Zccs-5GD/pub?output=csv';
 
         // Cores personalizadas
         const colors = {
@@ -135,142 +134,164 @@
             }
         };
 
-        // Gráfico 1: Usa IA?
-        const usaIACtx = document.getElementById('usaIAChart').getContext('2d');
-        new Chart(usaIACtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Sim', 'Não'],
-                datasets: [{
-                    data: [1, 0],
-                    backgroundColor: ['#9a1acc', '#ff6b6b'],
-                    borderColor: '#1a1a2e',
-                    borderWidth: 2
-                }]
-            },
-            options: chartOptions
-        });
+        const statusElement = document.createElement('div');
+        statusElement.id = 'dataStatus';
+        statusElement.className = 'text-center my-3';
+        statusElement.textContent = 'Carregando respostas do formulário...';
+        const chartsGrid = document.querySelector('.charts-grid');
+        chartsGrid.parentNode.insertBefore(statusElement, chartsGrid);
 
-        // Gráfico 2: Qual IA mais usada
-        const qualIACtx = document.getElementById('qualIAChart').getContext('2d');
-        new Chart(qualIACtx, {
-            type: 'bar',
-            data: {
-                labels: ['ChatGPT', 'Google AI', 'Copilot', 'Outros'],
-                datasets: [{
-                    label: 'Quantidade de respostas',
-                    data: [1, 0, 0, 0],
-                    backgroundColor: '#9a1acc',
-                    borderColor: '#6638ff',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                ...chartOptions,
-                scales: {
-                    y: {
-                        ticks: { color: '#ececec' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
-                    },
-                    x: {
-                        ticks: { color: '#ececec' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+        function normalizeHeader(text) {
+            return text.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function parseCSV(csv) {
+            const rows = [];
+            const lines = csv.trim().split(/\r?\n/);
+            for (const line of lines) {
+                const values = [];
+                let current = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                        continue;
                     }
+                    if (char === ',' && !inQuotes) {
+                        values.push(current);
+                        current = '';
+                        continue;
+                    }
+                    current += char;
+                }
+                values.push(current);
+                rows.push(values.map(value => value.trim()));
+            }
+            return rows;
+        }
+
+        function createChart(ctx, type, labels, data, color) {
+            return new Chart(ctx, {
+                type,
+                data: {
+                    labels,
+                    datasets: [{
+                        label: type === 'bar' ? 'Quantidade de respostas' : undefined,
+                        data,
+                        backgroundColor: Array.isArray(color) ? color : color,
+                        borderColor: '#6638ff',
+                        borderWidth: 2
+                    }]
+                },
+                options: type === 'bar' ? {
+                    ...chartOptions,
+                    scales: {
+                        y: {
+                            ticks: { color: '#ececec' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#ececec' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        }
+                    }
+                } : chartOptions
+            });
+        }
+
+        const usaIAChart = createChart(document.getElementById('usaIAChart').getContext('2d'), 'doughnut', ['Sim', 'Não'], [0, 0], ['#9a1acc', '#ff6b6b']);
+        const qualIAChart = createChart(document.getElementById('qualIAChart').getContext('2d'), 'bar', ['ChatGPT', 'Gemini', 'Claude', 'Outros'], [0, 0, 0, 0], '#9a1acc');
+        const frequenciaChart = createChart(document.getElementById('frequenciaChart').getContext('2d'), 'doughnut', ['Casualmente', 'Frequentemente', 'Raramente'], [0, 0, 0], ['#9a1acc', '#6638ff', '#ff6b6b']);
+        const finalidadeChart = createChart(document.getElementById('finalidadeChart').getContext('2d'), 'bar', ['Estudar', 'Trabalho', 'Criatividade', 'Entretenimento', 'Outros'], [0, 0, 0, 0, 0], '#9a1acc');
+        const criatividadeChart = createChart(document.getElementById('criatividadeChart').getContext('2d'), 'doughnut', ['Sim', 'Não'], [0, 0], ['#ff6b6b', '#9a1acc']);
+        const aprendizadoChart = createChart(document.getElementById('aprendizadoChart').getContext('2d'), 'doughnut', ['Sim', 'Não'], [0, 0], ['#9a1acc', '#ff6b6b']);
+        const opiniaoChart = createChart(document.getElementById('opiniaoChart').getContext('2d'), 'doughnut', ['Deveria existir', 'Não deveria existir'], [0, 0], ['#9a1acc', '#ff6b6b']);
+
+        function updateChart(chart, data, labels) {
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = data;
+            chart.update();
+        }
+
+        function countAnswers(rows, columnIndex, options, fallback = 'Outros') {
+            const counts = Object.fromEntries(options.map(option => [option, 0]));
+            counts[fallback] = counts[fallback] || 0;
+            for (const row of rows) {
+                const value = (row[columnIndex] || '').trim();
+                const normalized = normalizeHeader(value);
+                const matched = options.find(option => normalizeHeader(option) === normalized);
+                if (matched) {
+                    counts[matched] += 1;
+                } else if (value) {
+                    counts[fallback] += 1;
                 }
             }
-        });
+            return counts;
+        }
 
-        // Gráfico 3: Frequência de uso
-        const frequenciaCtx = document.getElementById('frequenciaChart').getContext('2d');
-        new Chart(frequenciaCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Casualmente', 'Frequentemente', 'Raramente'],
-                datasets: [{
-                    data: [1, 0, 0],
-                    backgroundColor: ['#9a1acc', '#6638ff', '#ff6b6b'],
-                    borderColor: '#1a1a2e',
-                    borderWidth: 2
-                }]
-            },
-            options: chartOptions
-        });
+        function fetchAndUpdate() {
+            const url = sheetUrl + (sheetUrl.includes('?') ? '&' : '?') + 'cacheBust=' + Date.now();
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Não foi possível carregar os dados da planilha');
+                    return response.text();
+                })
+                .then(text => {
+                    const rows = parseCSV(text);
+                    if (rows.length <= 1) throw new Error('Planilha vazia ou formato inválido');
 
-        // Gráfico 4: Finalidade
-        const finalidadeCtx = document.getElementById('finalidadeChart').getContext('2d');
-        new Chart(finalidadeCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Estudar', 'Trabalho', 'Criatividade', 'Entretenimento'],
-                datasets: [{
-                    label: 'Quantidade de respostas',
-                    data: [1, 0, 0, 0],
-                    backgroundColor: '#9a1acc',
-                    borderColor: '#6638ff',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                ...chartOptions,
-                scales: {
-                    y: {
-                        ticks: { color: '#ececec' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
-                    },
-                    x: {
-                        ticks: { color: '#ececec' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    const header = rows[0].map(normalizeHeader);
+                    const dataRows = rows.slice(1);
+
+                    const usaIaIndex = header.findIndex(h => h.includes('usa inteligencia artificial'));
+                    const qualIaIndex = header.findIndex(h => h.includes('qual ia') || h.includes('qual ia voce usa mais'));
+                    const frequenciaIndex = header.findIndex(h => h.includes('este uso e frequente') || h.includes('frequente'));
+                    const finalidadeIndex = header.findIndex(h => h.includes('principal finalidade') || h.includes('finalidade'));
+                    const criatividadeIndex = header.findIndex(h => h.includes('atrapalhar sua criatividade'));
+                    const aprendizadoIndex = header.findIndex(h => h.includes('ajudar no aprendizado'));
+                    const opiniaoIndex = header.findIndex(h => h.includes('seria melhor que a ia existisse') || h.includes('ia existisse'));
+
+                    if ([usaIaIndex, qualIaIndex, frequenciaIndex, finalidadeIndex, criatividadeIndex, aprendizadoIndex, opiniaoIndex].some(i => i === -1)) {
+                        console.warn('Colunas esperadas não encontradas na planilha');
                     }
-                }
-            }
-        });
 
-        // Gráfico 5: Criatividade
-        const criatividadeCtx = document.getElementById('criatividadeChart').getContext('2d');
-        new Chart(criatividadeCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Sim', 'Não'],
-                datasets: [{
-                    data: [1, 0],
-                    backgroundColor: ['#ff6b6b', '#9a1acc'],
-                    borderColor: '#1a1a2e',
-                    borderWidth: 2
-                }]
-            },
-            options: chartOptions
-        });
+                    const usaCounts = countAnswers(dataRows, usaIaIndex, ['Sim', 'Não']);
+                    const qualCounts = countAnswers(dataRows, qualIaIndex, ['ChatGPT', 'Gemini', 'Claude'], 'Outros');
+                    const frequenciaCounts = countAnswers(dataRows, frequenciaIndex, ['Casualmente', 'Frequentemente', 'Raramente']);
+                    const criatividadeCounts = countAnswers(dataRows, criatividadeIndex, ['Sim', 'Não']);
+                    const aprendizadoCounts = countAnswers(dataRows, aprendizadoIndex, ['Sim', 'Não']);
+                    const opiniaoCounts = countAnswers(dataRows, opiniaoIndex, ['Sim', 'Não']);
 
-        // Gráfico 6: Aprendizado
-        const aprendizadoCtx = document.getElementById('aprendizadoChart').getContext('2d');
-        new Chart(aprendizadoCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Sim', 'Não'],
-                datasets: [{
-                    data: [1, 0],
-                    backgroundColor: ['#9a1acc', '#ff6b6b'],
-                    borderColor: '#1a1a2e',
-                    borderWidth: 2
-                }]
-            },
-            options: chartOptions
-        });
+                    updateChart(usaIAChart, [usaCounts['Sim'] || 0, usaCounts['Não'] || 0], ['Sim', 'Não']);
+                    updateChart(qualIAChart, [qualCounts['ChatGPT'] || 0, qualCounts['Gemini'] || 0, qualCounts['Claude'] || 0, qualCounts['Outros'] || 0], ['ChatGPT', 'Gemini', 'Claude', 'Outros']);
+                    updateChart(frequenciaChart, [frequenciaCounts['Casualmente'] || 0, frequenciaCounts['Frequentemente'] || 0, frequenciaCounts['Raramente'] || 0], ['Casualmente', 'Frequentemente', 'Raramente']);
+                    // para a pergunta de finalidade, use rótulos dinâmicos a partir das respostas reais
+                    const finalidadeMap = {};
+                    if (finalidadeIndex >= 0) {
+                        for (const row of dataRows) {
+                            const v = (row[finalidadeIndex] || '').trim();
+                            if (!v) continue;
+                            finalidadeMap[v] = (finalidadeMap[v] || 0) + 1;
+                        }
+                    }
+                    const finalidadeLabels = Object.keys(finalidadeMap).length ? Object.keys(finalidadeMap) : ['Estudar', 'Trabalho', 'Criatividade', 'Entretenimento', 'Outros'];
+                    const finalidadeData = finalidadeLabels.map(l => finalidadeMap[l] || 0);
+                    updateChart(finalidadeChart, finalidadeData, finalidadeLabels);
+                    updateChart(criatividadeChart, [criatividadeCounts['Sim'] || 0, criatividadeCounts['Não'] || 0], ['Sim', 'Não']);
+                    updateChart(aprendizadoChart, [aprendizadoCounts['Sim'] || 0, aprendizadoCounts['Não'] || 0], ['Sim', 'Não']);
+                    updateChart(opiniaoChart, [opiniaoCounts['Sim'] || 0, opiniaoCounts['Não'] || 0], ['Deveria existir', 'Não deveria existir']);
 
-        // Gráfico 7: Opinião radical
-        const opiniaoCtx = document.getElementById('opiniaoChart').getContext('2d');
-        new Chart(opiniaoCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Deveria existir', 'Não deveria existir'],
-                datasets: [{
-                    data: [1, 0],
-                    backgroundColor: ['#9a1acc', '#ff6b6b'],
-                    borderColor: '#1a1a2e',
-                    borderWidth: 2
-                }]
-            },
-            options: chartOptions
-        });
+                    statusElement.textContent = 'Respostas do formulário carregadas com sucesso. Última atualização: ' + new Date().toLocaleTimeString();
+                })
+                .catch(error => {
+                    console.error(error);
+                    statusElement.textContent = 'Erro ao carregar as respostas reais. Última tentativa: ' + new Date().toLocaleTimeString();
+                });
+        }
+
+        // primeira carga e polling a cada 30 segundos
+        fetchAndUpdate();
+        setInterval(fetchAndUpdate, 30000);
     </script>
 </body>
