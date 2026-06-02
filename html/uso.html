@@ -201,11 +201,17 @@
         }
 
         const usaIAChart = createChart(document.getElementById('usaIAChart').getContext('2d'), 'doughnut', ['Sim', 'Não'], [0, 0], ['#9a1acc', '#ff6b6b']);
+
         const qualIAChart = createChart(document.getElementById('qualIAChart').getContext('2d'), 'bar', ['ChatGPT', 'Gemini', 'Claude', 'Outros'], [0, 0, 0, 0], '#9a1acc');
+
         const frequenciaChart = createChart(document.getElementById('frequenciaChart').getContext('2d'), 'doughnut', ['Casualmente', 'Frequentemente', 'Raramente'], [0, 0, 0], ['#9a1acc', '#6638ff', '#ff6b6b']);
+
         const finalidadeChart = createChart(document.getElementById('finalidadeChart').getContext('2d'), 'bar', ['Estudar', 'Trabalho', 'Criatividade', 'Entretenimento', 'Outros'], [0, 0, 0, 0, 0], '#9a1acc');
+
         const criatividadeChart = createChart(document.getElementById('criatividadeChart').getContext('2d'), 'doughnut', ['Sim', 'Não'], [0, 0], ['#ff6b6b', '#9a1acc']);
+
         const aprendizadoChart = createChart(document.getElementById('aprendizadoChart').getContext('2d'), 'doughnut', ['Sim', 'Não'], [0, 0], ['#9a1acc', '#ff6b6b']);
+
         const opiniaoChart = createChart(document.getElementById('opiniaoChart').getContext('2d'), 'doughnut', ['Deveria existir', 'Não deveria existir'], [0, 0], ['#9a1acc', '#ff6b6b']);
 
         function updateChart(chart, data, labels) {
@@ -292,6 +298,6 @@
 
         // primeira carga e polling a cada 30 segundos
         fetchAndUpdate();
-        setInterval(fetchAndUpdate, 30000);
+        setInterval(fetchAndUpdate, 15000);
     </script>
 </body>

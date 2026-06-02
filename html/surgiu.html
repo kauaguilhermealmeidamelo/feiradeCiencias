@@ -46,7 +46,7 @@
                         <a class="nav-link"
                             href="https://docs.google.com/forms/d/e/1FAIpQLSdArSO-csK1vUwqgl4K5mfgzs2TUSXiYkJ_VKuFJbAvVCgHVQ/viewform?usp=publish-editor">Diga-nos
                             sua opinião</a>
-                        <a class="nav-link" href="./html/uso.html">Dados de uso da IA</a>
+                        <a class="nav-link" href="./uso.html">Dados de uso da IA</a>
                     </div>
                 </div>
             </div>
@@ -55,10 +55,33 @@
     </div>
 
     <!--main-->
+    
     <main class="container my-5">
+
+
+
         <section class="noticia">
             <h1>Como surgiu a inteligência artificial?</h1>
             <img src="../img/notf3.png" alt="Representação de inteligência artificial">
+
+            <section class="audio-player">
+                <div class="audio-card">
+                    <div class="audio-top">
+                        <span class="audio-tag">voz real do grupo</span>
+                        <h2>Ouvir em voz do grupo</h2>
+                    </div>
+                    <p class="audio-desc">Clique no botão abaixo para ouvir a gravação real do membro do grupo.</p>
+                    <button id="audioButton" class="audio-btn">
+                        <span class="btn-icon">🎧</span>
+                        <span class="btn-text">Ouvir a leitura</span>
+                    </button>
+                    <audio id="groupAudio" hidden>
+                        <source src="../audio/funcionaAudio.ogg" type="audio/ogg">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
+            </section>
+
             <p>A inteligência artificial (IA) nasceu através de um esforço coletivo de diversos pesquisadores e especialistas. Não há um único criador, pois o desenvolvimento da IA foi um processo gradual e colaborativo.</p>
             <p>Nomes como Warren McCulloch, Walter Pitts, Alan Turing, John McCarthy, Allen Newell, Herbert A. Simon, Cliff Shaw, Frank Rosenblatt e Joseph Weizenbaum foram fundamentais para o surgimento das primeiras ideias e das bases teóricas da IA.</p>
             <p>O processo começou na década de 1940, quando redes neurais simples e os primeiros computadores começaram a ser estudados. Aqueles primeiros computadores reforçaram a ideia de que máquinas poderiam executar tarefas complexas semelhantes ao pensamento humano.</p>
