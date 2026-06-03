@@ -68,15 +68,15 @@
                 <div class="audio-card">
                     <div class="audio-top">
                         <span class="audio-tag">voz real do grupo</span>
-                        <h2>Ouvir em voz do grupo</h2>
+                        <h2>Ouvir voz do grupo</h2>
                     </div>
-                    <p class="audio-desc">Clique no botão abaixo para ouvir a gravação real do membro do grupo.</p>
+                    <p class="audio-desc">Clique no botão abaixo para ouvir a transcrição.</p>
                     <button id="audioButton" class="audio-btn">
                         <span class="btn-icon">🎧</span>
                         <span class="btn-text">Ouvir a leitura</span>
                     </button>
                     <audio id="groupAudio" hidden>
-                        <source src="../audio/funcionaAudio.ogg" type="audio/ogg">
+                        <source src="../audio/surgiuAudio.ogg" type="audio/ogg">
                         Seu navegador não suporta o elemento de áudio.
                     </audio>
                 </div>
@@ -89,6 +89,25 @@
             <p>Em 1943, o psicólogo Walter Pitts e o ciberneticista Warren McCulloch propuseram um modelo matemático para simular o funcionamento neural do cérebro humano, conhecido como rede neural. Esse trabalho ajudou a criar a base para pesquisas em algoritmos e aprendizado profundo.</p>
         </section>
     </main>
+
+    <script>
+            const audioButton = document.getElementById('audioButton');
+            const groupAudio = document.getElementById('groupAudio');
+
+            audioButton.addEventListener('click', () => {
+                if (groupAudio.paused) {
+                    groupAudio.play();
+                    audioButton.textContent = 'Pausar leitura';
+                } else {
+                    groupAudio.pause();
+                    audioButton.textContent = 'Ouvir a leitura';
+                }
+            });
+
+            groupAudio.addEventListener('ended', () => {
+                audioButton.textContent = 'Ouvir a leitura';
+            });
+        </script>
 
 </body>
 
